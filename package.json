@@ -1,0 +1,48 @@
+{
+  "name": "mathjax-electron",
+  "version": "0.1.0",
+  "description": "A trimmed down version of the MathJax library for use with electron",
+  "main": "lib/mathjax-electron.js",
+  "scripts": {
+    "prebuild": "mkdirp lib && mkdirp dist && npm run clean",
+    "test": "mocha --compilers js:babel/register",
+    "build": "npm run build:es5 && npm run build:browser",
+    "build:es5": "babel src --out-dir lib/ --source-maps",
+    "build:browser": "browserify lib/*.js --outfile dist/index.js",
+    "prepublish": "npm run build",
+    "watch": "parallelshell 'npm run watch:test -s' 'npm run watch:build -s'",
+    "watch:build": "nodemon -q -w src/ --ext '.' --exec 'npm run build'",
+    "watch:test": "npm run test -- -w",
+    "clean": "rimraf lib/* dist/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nteract/mathjax-electron.git"
+  },
+  "keywords": [
+    "mathjax",
+    "electron"
+  ],
+  "author": "Lukas Geiger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nteract/mathjax-electron/issues"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "browserify": "^10.2.6",
+    "http-server": "^0.8.0",
+    "live-reload": "^1.1.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^2.2.5",
+    "nodemon": "^1.3.7",
+    "opener": "^1.4.1",
+    "parallelshell": "^1.2.0",
+    "rimraf": "^2.4.1",
+    "vulcanize": "^1.10.1",
+    "webcomponents.js": "^0.7.2",
+    "jsdom": "^5.6.0",
+    "chai": "^3.2.0",
+    "whatwg-fetch": "^0.9.0"
+  }
+}
