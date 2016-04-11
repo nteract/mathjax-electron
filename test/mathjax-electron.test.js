@@ -15,4 +15,17 @@ describe('latex transform', function() {
         let script = this.document.getElementsByTagName('script')[0].outerHTML
         return assert.equal(script, headScript);
     });
+
+    it('should output the correct MathJax script', function() {
+        let latex = '\sum\limits_{i=0}^{\infty} \frac{1}{n^2}';
+        let mathJaxScript = '<script type="math/tex">\sum\limits_{i=0}^{\infty} \frac{1}{n^2}</script>';
+
+        let container = this.document.createElement('script');
+        container.type = 'math/tex';
+        container.innerHTML = latex.replace('<br>', '');
+
+        mathJaxHelper.loadMathJax(this.document);
+        mathJaxHelper.mathProcessor(container);
+        return assert.equal(container.outerHTML, mathJaxScript);
+    });
 });
