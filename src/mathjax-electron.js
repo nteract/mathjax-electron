@@ -43,14 +43,22 @@ var typesetMath = function(container) {
 var configureMathJax = function() {
     MathJax.Hub.Config({
         jax: ["input/TeX", "output/SVG"],
-        extensions: [],
+        extensions: ["tex2jax.js"],
+        messageStyle: "none",
+        showMathMenu: false,
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true,
+            preview: "none"
+        },
         TeX: {
             extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
         },
         SVG: {
             font: "STIX-Web"
-        },
-        messageStyle: "none"
+        }
     });
     MathJax.Hub.Configured();
 };
