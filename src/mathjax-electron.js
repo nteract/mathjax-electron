@@ -3,12 +3,14 @@
 var path = require('path');
 
 module.exports = {
-    loadMathJax: function(document) {
+    loadMathJax: function(document, callback) {
+        callback = (typeof callback === 'function') ? callback : function() {};
         if (typeof MathJax === "undefined" || MathJax === null) {
             var script = document.createElement("script");
 
             script.addEventListener("load", function() {
                 configureMathJax();
+                callback();
             });
             script.type = "text/javascript";
 
@@ -20,24 +22,25 @@ module.exports = {
             } catch (error) {
                 throw new Error(error.message, "loadMathJax");
             }
+        } else {
+            callback();
         }
     },
 
-    mathProcessor: function(container) {
+    typesetMath: function(container, callback) {
+        callback = (typeof callback === 'function') ? callback : function() {};
         try {
-            typesetMath(container);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, container], callback);
         } catch (error) {
-            try {
-                setTimeout(typesetMath, 1000, container)
-            } catch (error) {
-                throw new Error(error.message, "mathProcessor");
-            }
-        }
-    }
-};
+            throw new Error(error.message, "typesetMath");
+      }
+    },
 
-var typesetMath = function(container) {
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, container]);
+    mathProcessor: function(document, container, callback) {
+        this.loadMathJax(document, function () {
+            module.exports.typesetMath(container, callback);
+        });
+    }
 };
 
 var configureMathJax = function() {
