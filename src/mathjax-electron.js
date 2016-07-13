@@ -3,62 +3,92 @@
 var path = require('path');
 
 module.exports = {
-    loadMathJax: function(document) {
-        if (typeof MathJax === "undefined" || MathJax === null) {
-            var script = document.createElement("script");
+  /**
+   * Loads and configures MathJax if necessary.
+   * @param  {Document} document - A Document Object Model.
+   * The MathJax Script is included in the <head> section of the HTML document.
+   * @param  {Callback} callback - A callback to run when MathJax is loaded.
+   */
+  loadMathJax: function(document, callback) {
+    callback = (typeof callback === 'function') ? callback : function() {};
+    if (typeof MathJax === "undefined" || MathJax === null) {
+      var script = document.createElement("script");
 
-            script.addEventListener("load", function() {
-                configureMathJax();
-            });
-            script.type = "text/javascript";
+      script.addEventListener("load", function() {
+        configureMathJax();
+        callback();
+      });
+      script.type = "text/javascript";
 
-            try {
-                script.src = path.join(__dirname, "..", "resources",
-                    "MathJax", "MathJax.js?delayStartupUntil=configured");
+      try {
+        script.src = path.join(__dirname, "..", "resources", "MathJax",
+        "MathJax.js?delayStartupUntil=configured");
 
-                document.getElementsByTagName("head")[0].appendChild(script);
-            } catch (error) {
-                throw new Error(error.message, "loadMathJax");
-            }
-        }
-    },
-
-    mathProcessor: function(container) {
-        try {
-            typesetMath(container);
-        } catch (error) {
-            try {
-                setTimeout(typesetMath, 1000, container)
-            } catch (error) {
-                throw new Error(error.message, "mathProcessor");
-            }
-        }
+        document.getElementsByTagName("head")[0].appendChild(script);
+      } catch (error) {
+        throw new Error(error.message, "loadMathJax");
+      }
+    } else {
+      callback();
     }
-};
+  },
 
-var typesetMath = function(container) {
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, container]);
+  /**
+   * Typesets any math elements within the element.
+   * @param  {HTMLElement}  container - The element whose math is to be typeset.
+   * @param  {Callback}     callback  - A callback to run when the typeset
+   * is complete.
+   */
+  typesetMath: function(container, callback) {
+    callback = (typeof callback === 'function') ? callback : function() {};
+    try {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, container], callback);
+    } catch (error) {
+      throw new Error(error.message, "typesetMath");
+    }
+  },
+
+  /**
+   * A helper function which loads MathJax if necessary and typesets any math
+   * elements within the container.
+   * @param  {Document}     document  - A Document Object Model.
+   * The MathJax Script is included in the <head> section of the HTML document.
+   * @param  {HTMLElement}  container - The element whose math is to be typeset.
+   * @param  {Callback}     callback  - A callback to run when the typeset
+   * is complete.
+   */
+  mathProcessor: function(document, container, callback) {
+    this.loadMathJax(document, function() {
+      module.exports.typesetMath(container, callback);
+    });
+  }
 };
 
 var configureMathJax = function() {
-    MathJax.Hub.Config({
-        jax: ["input/TeX", "output/SVG"],
-        extensions: ["tex2jax.js"],
-        messageStyle: "none",
-        showMathMenu: false,
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true,
-            preview: "none"
-        },
-        TeX: {
-            extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
-        },
-        SVG: {
-            font: "STIX-Web"
-        }
-    });
-    MathJax.Hub.Configured();
+  MathJax.Hub.Config({
+    jax: ["input/TeX", "output/SVG"],
+    extensions: ["tex2jax.js"],
+    messageStyle: "none",
+    showMathMenu: false,
+    tex2jax: {
+      inlineMath: [
+        ['$', '$'],
+        ["\\(", "\\)"]
+      ],
+      displayMath: [
+        ['$$', '$$'],
+        ["\\[", "\\]"]
+      ],
+      processEscapes: true,
+      processEnvironments: true,
+      preview: "none"
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
+    },
+    SVG: {
+      font: "STIX-Web"
+    }
+  });
+  MathJax.Hub.Configured();
 };
