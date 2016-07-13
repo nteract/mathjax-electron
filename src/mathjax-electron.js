@@ -3,6 +3,12 @@
 var path = require('path');
 
 module.exports = {
+  /**
+   * Loads and configures MathJax if necessary.
+   * @param  {Document} document - A Document Object Model.
+   * The MathJax Script is included in the <head> section of the HTML document.
+   * @param  {Callback} callback - A callback to run when MathJax is loaded.
+   */
   loadMathJax: function(document, callback) {
     callback = (typeof callback === 'function') ? callback : function() {};
     if (typeof MathJax === "undefined" || MathJax === null) {
@@ -27,6 +33,12 @@ module.exports = {
     }
   },
 
+  /**
+   * Typesets any math elements within the element.
+   * @param  {HTMLElement}  container - The element whose math is to be typeset.
+   * @param  {Callback}     callback  - A callback to run when the typeset
+   * is complete.
+   */
   typesetMath: function(container, callback) {
     callback = (typeof callback === 'function') ? callback : function() {};
     try {
@@ -36,6 +48,15 @@ module.exports = {
     }
   },
 
+  /**
+   * A helper function which loads MathJax if necessary and typesets any math
+   * elements within the container.
+   * @param  {Document}     document  - A Document Object Model.
+   * The MathJax Script is included in the <head> section of the HTML document.
+   * @param  {HTMLElement}  container - The element whose math is to be typeset.
+   * @param  {Callback}     callback  - A callback to run when the typeset
+   * is complete.
+   */
   mathProcessor: function(document, container, callback) {
     this.loadMathJax(document, function() {
       module.exports.typesetMath(container, callback);
