@@ -8,8 +8,7 @@ var path = require('path');
  * The MathJax Script is included in the <head> section of the HTML document.
  * @param  {Callback} callback - A callback to run when MathJax is loaded.
  */
-var loadMathJax = function(document, callback) {
-  callback = (typeof callback === 'function') ? callback : function() {};
+var loadMathJax = function(document, callback = noop) {
   if (typeof MathJax === "undefined" || MathJax === null) {
     var script = document.createElement("script");
 
@@ -38,8 +37,7 @@ var loadMathJax = function(document, callback) {
  * @param  {Callback}     callback  - A callback to run when the typeset
  * is complete.
  */
-var typesetMath = function(container, callback) {
-  callback = (typeof callback === 'function') ? callback : function() {};
+var typesetMath = function(container, callback = noop) {
   try {
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, container], callback);
   } catch (error) {
@@ -56,12 +54,11 @@ var typesetMath = function(container, callback) {
  * @param  {Callback}     callback  - A callback to run when the typeset
  * is complete.
  */
-var mathProcessor = function(document, container, callback) {
+var mathProcessor = function(document, container, callback = noop) {
   loadMathJax(document, function() {
     typesetMath(container, callback);
   });
 };
-
 
 var configureMathJax = function() {
   MathJax.Hub.Config({
@@ -91,6 +88,8 @@ var configureMathJax = function() {
   });
   MathJax.Hub.Configured();
 };
+
+var noop = function() {};
 
 module.exports = {
   loadMathJax,
