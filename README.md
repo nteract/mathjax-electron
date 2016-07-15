@@ -15,7 +15,7 @@ var mathjaxHelper = require('mathjax-electron')
 var container = document.createElement('div')
 container.innerHTML = '$$\\sum\\limits_{i=0}^{\\infty} \\frac{1}{n^2}$$'
 
-mathjaxHelper.mathProcessor(document, container)
+mathjaxHelper.loadAndTypeset(document, container)
 
 ```
 
@@ -47,7 +47,7 @@ is complete.
 
 
 
-### mathProcessor(document, container, callback)
+### loadAndTypeset(document, container, callback)
 
 A helper function which loads MathJax if necessary and typesets any math
 elements within the container.

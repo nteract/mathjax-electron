@@ -36,7 +36,7 @@ describe('latex transform', function() {
 
     var container = document.createElement('div');
     container.innerHTML = latex
-    mathJaxHelper.mathProcessor(document, container,
+    mathJaxHelper.loadAndTypeset(document, container,
       function() {
         assert.lengthOf(container.getElementsByClassName('MathJax_SVG_Display'), 1);
         assert.lengthOf(container.getElementsByClassName('MathJax_SVG'), 1);
