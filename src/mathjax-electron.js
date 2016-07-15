@@ -54,7 +54,7 @@ function typesetMath(container, callback = noop) {
  * @param  {Callback}     callback  - A callback to run when the typeset
  * is complete.
  */
-function mathProcessor(document, container, callback = noop) {
+function loadAndTypeset(document, container, callback = noop) {
   loadMathJax(document, function() {
     typesetMath(container, callback);
   });
@@ -94,5 +94,5 @@ function noop() {};
 module.exports = {
   loadMathJax,
   typesetMath,
-  mathProcessor
+  loadAndTypeset
 }
