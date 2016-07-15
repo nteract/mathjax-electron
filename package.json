@@ -9,6 +9,7 @@
     "build": "npm run build:es5 && npm run build:browser",
     "build:es5": "babel src --out-dir lib/ --source-maps",
     "build:browser": "browserify lib/*.js --outfile dist/index.js",
+    "build:docs": "jsdoc -R README.md -d docs src/*.js",
     "prepublish": "npm run build",
     "clean": "rimraf lib/* dist/*"
   },
@@ -33,6 +34,7 @@
     "chai": "^3.2.0",
     "electron-mocha": "^2.2.0",
     "electron-prebuilt": "^1.2.2",
+    "jsdoc": "^3.4.0",
     "mkdirp": "^0.5.1",
     "mocha": "^2.5.3",
     "rimraf": "^2.4.1"
