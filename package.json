@@ -1,6 +1,6 @@
 {
   "name": "mathjax-electron",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A trimmed down version of the MathJax library for use with electron",
   "main": "lib/mathjax-electron.js",
   "scripts": {
