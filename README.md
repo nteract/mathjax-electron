@@ -1,5 +1,7 @@
 # mathjax-electron
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nteract/mathjax-electron.svg)](https://greenkeeper.io/)
+
 A trimmed down version of the [MathJax](https://www.mathjax.org/) library for use with electron.
 
 `mathjax-electron` allows you to render math inside your application or in a modern browser while keeping the package size at a minimum. To achieve this we provide a preconfigured MathJax environment with only the necessary bits of the MathJax Library included.
