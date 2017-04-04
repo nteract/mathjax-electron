@@ -1,6 +1,6 @@
 "use strict";
 
-var path = require('path');
+var path = require("path");
 
 /**
  * Loads and configures MathJax if necessary.
@@ -8,28 +8,34 @@ var path = require('path');
  * The MathJax Script is included in the <head> section of the HTML document.
  * @param  {Callback} callback - A callback to run when MathJax is loaded.
  */
-function loadMathJax(document, callback = noop) {
+function loadMathJax(document, callback) {
   if (typeof MathJax === "undefined" || MathJax === null) {
     var script = document.createElement("script");
 
-    script.addEventListener("load", function() {
-      configureMathJax();
-      callback();
-    });
+    if (typeof callback === "function") {
+      script.addEventListener("load", function() {
+        callback();
+      });
+    }
+
     script.type = "text/javascript";
 
     try {
-      script.src = path.join(__dirname, "..", "resources", "MathJax",
-      "MathJax.js?delayStartupUntil=configured");
+      script.src = path.join(
+        __dirname,
+        "resources",
+        "MathJax",
+        "MathJax.js?config=electron"
+      );
 
       document.getElementsByTagName("head")[0].appendChild(script);
     } catch (error) {
       throw new Error(error.message, "loadMathJax");
     }
   } else {
-    callback();
+    if (typeof callback === "function") callback();
   }
-};
+}
 
 /**
  * Typesets any math elements within the element.
@@ -37,13 +43,17 @@ function loadMathJax(document, callback = noop) {
  * @param  {Callback}     callback  - A callback to run when the typeset
  * is complete.
  */
-function typesetMath(container, callback = noop) {
+function typesetMath(container, callback) {
   try {
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, container], callback);
+    if (typeof callback === "function") {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, container], callback);
+    } else {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, container]);
+    }
   } catch (error) {
     throw new Error(error.message, "typesetMath");
   }
-};
+}
 
 /**
  * A helper function which loads MathJax if necessary and typesets any math
@@ -54,45 +64,14 @@ function typesetMath(container, callback = noop) {
  * @param  {Callback}     callback  - A callback to run when the typeset
  * is complete.
  */
-function loadAndTypeset(document, container, callback = noop) {
+function loadAndTypeset(document, container, callback) {
   loadMathJax(document, function() {
     typesetMath(container, callback);
   });
-};
-
-function configureMathJax() {
-  MathJax.Hub.Config({
-    jax: ["input/TeX", "output/SVG"],
-    extensions: ["tex2jax.js"],
-    messageStyle: "none",
-    showMathMenu: false,
-    tex2jax: {
-      inlineMath: [
-        ['$', '$'],
-        ["\\(", "\\)"]
-      ],
-      displayMath: [
-        ['$$', '$$'],
-        ["\\[", "\\]"]
-      ],
-      processEscapes: true,
-      processEnvironments: true,
-      preview: "none"
-    },
-    TeX: {
-      extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
-    },
-    SVG: {
-      font: "STIX-Web"
-    }
-  });
-  MathJax.Hub.Configured();
-};
-
-function noop() {};
+}
 
 module.exports = {
-  loadMathJax,
-  typesetMath,
-  loadAndTypeset
-}
+  loadMathJax: loadMathJax,
+  typesetMath: typesetMath,
+  loadAndTypeset: loadAndTypeset
+};

@@ -2,7 +2,6 @@ docs/
 
 # Builds
 dist/
-lib/
 
 # Logs
 logs
