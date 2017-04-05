@@ -4,7 +4,7 @@
   "description": "A trimmed down version of the MathJax library for use with Electron and modern browsers",
   "main": "index.js",
   "scripts": {
-    "test": "electron-mocha --renderer"
+    "test": "electron-mocha --renderer test/load.test.js && electron-mocha --renderer test/load-and-typeset.test.js"
   },
   "repository": {
     "type": "git",
