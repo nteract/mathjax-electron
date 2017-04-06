@@ -13,15 +13,12 @@ describe("loading", function(done) {
       assert.ok(typeof MathJax === "object", "MathJax should be defined");
       var script = document.getElementsByTagName("script")[1].outerHTML;
       assert.equal(script, headScript);
+
+      //It would throw if it tries to load MathJax again because loadMathJax is called without document
+      assert.doesNotThrow(mathJaxHelper.loadMathJax);
+
       done();
     });
-  });
-
-  it("should not load MathJax a second time", function() {
-    assert.ok(typeof MathJax === "object", "MathJax should be defined");
-
-    //It would throw if it tries to load MathJax again
-    assert.doesNotThrow(mathJaxHelper.loadMathJax);
   });
 
   it("should output the correct MathJax script", function(done) {
