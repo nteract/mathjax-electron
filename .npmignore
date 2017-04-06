@@ -35,3 +35,6 @@ bower_components
 
 # Don't include auto-generated docs
 docs
+
+# Don't include tests
+test/
