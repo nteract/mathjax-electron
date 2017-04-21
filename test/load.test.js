@@ -2,8 +2,8 @@ var assert = require("assert");
 var path = require("path");
 var mathJaxHelper = require("../index");
 
-describe("loading", function(done) {
-  it("should load MathJax", function() {
+describe("loading", function() {
+  it("should load MathJax", function(done) {
     var mathJaxPath = path.join(__dirname, "..", "resources");
     var headScript = '<script type="text/javascript" src="' +
       mathJaxPath +
