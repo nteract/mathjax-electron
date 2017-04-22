@@ -3,6 +3,7 @@ MathJax.Hub.Config({
   extensions: ["tex2jax.js"],
   messageStyle: "none",
   showMathMenu: false,
+  skipStartupTypeset: true,
   tex2jax: {
     inlineMath: [["$", "$"], ["\\(", "\\)"]],
     displayMath: [["$$", "$$"], ["\\[", "\\]"]],
