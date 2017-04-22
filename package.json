@@ -1,6 +1,6 @@
 {
   "name": "mathjax-electron",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A trimmed down version of the MathJax library for use with Electron and modern browsers",
   "main": "index.js",
   "scripts": {
