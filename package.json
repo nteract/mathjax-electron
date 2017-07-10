@@ -28,6 +28,6 @@
   "devDependencies": {
     "electron": "^1.6.2",
     "electron-mocha": "^4.0.0",
-    "jsdoc": "^3.4.0"
+    "jsdoc": "^3.5.1"
   }
 }
