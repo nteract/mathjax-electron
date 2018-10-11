@@ -251,6 +251,10 @@ module.exports = function(grunt) {
         cwd + "unpacked/extensions/AssistiveMML.js",
         cwd + "unpacked/extensions/a11y"
       ],
+      mathMenuExtension: [
+        cwd + "extensions/MathMenu.js",
+        cwd + "unpacked/extensions/MathMenu.js"
+      ],
       miscExtensions: [
         cwd + "extensions/FontWarnings.js",
         cwd + "extensions/HelpDialog.js",
@@ -356,6 +360,7 @@ module.exports = function(grunt) {
     "clean:miscConfig",
     // "clean:miscExtensions", // You probably want these
     "clean:a11yExtensions",
+    "clean:mathMenuExtension",
     "clean:images",
     "clean:notcode",
     "copy:config"
