@@ -29,17 +29,17 @@ Now you can use MathJax inside you application.
 To trigger a rendering on a specific container, you can either use our helper module:
 
 ```javascript
-var mathjaxHelper = require("mathjax-electron");
+const { typesetMath } = require("mathjax-electron");
 
-var container = document.createElement("div");
+const container = document.createElement("div");
 container.innerHTML = "$$\\sum\\limits_{i=0}^{\\infty} \\frac{1}{n^2}$$";
-mathjaxHelper.typesetMath(container);
+typesetMath(container);
 ```
 
 or the MathJax global:
 
 ```javascript
-var container = document.createElement("div");
+const container = document.createElement("div");
 container.innerHTML = "$$\\sum\\limits_{i=0}^{\\infty} \\frac{1}{n^2}$$";
 
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, container]);
@@ -52,12 +52,12 @@ For more information about synchronizing your code, consult the [MathJax documen
 To load MathJax dynamically, you can do:
 
 ```javascript
-var mathjaxHelper = require("mathjax-electron");
+const { loadAndTypeset } = require("mathjax-electron");
 
-var container = document.createElement("div");
+const container = document.createElement("div");
 container.innerHTML = "$$\\sum\\limits_{i=0}^{\\infty} \\frac{1}{n^2}$$";
 
-mathjaxHelper.loadAndTypeset(document, container);
+loadAndTypeset(document, container);
 ```
 
 If used for the first time it will initialize MathJax and trigger a rendering. After that it won't load MathJax again and only trigger the rendering.
