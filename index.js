@@ -3,6 +3,13 @@
 var path = require("path");
 
 /**
+ * Path to manually load configured MathJax
+ */
+var mathJaxPath =
+  path.resolve(path.join(__dirname, "MathJax-2.7.5", "MathJax.js")) +
+  "?config=nteract";
+
+/**
  * Loads and configures MathJax if necessary.
  * @param  {Document} document - A Document Object Model.
  * The MathJax Script is included in the <head> section of the HTML document.
@@ -21,13 +28,7 @@ function loadMathJax(document, callback) {
     script.type = "text/javascript";
 
     try {
-      script.src = path.join(
-        __dirname,
-        "resources",
-        "MathJax",
-        "MathJax.js?config=electron"
-      );
-
+      script.src = mathJaxPath;
       document.getElementsByTagName("head")[0].appendChild(script);
     } catch (error) {
       throw new Error(error.message, "loadMathJax");
@@ -71,6 +72,7 @@ function loadAndTypeset(document, container, callback) {
 }
 
 module.exports = {
+  mathJaxPath: mathJaxPath,
   loadMathJax: loadMathJax,
   typesetMath: typesetMath,
   loadAndTypeset: loadAndTypeset
