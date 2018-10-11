@@ -6,7 +6,7 @@ A trimmed down version of the [MathJax](https://www.mathjax.org/) library for us
 
 `mathjax-electron` allows you to render math inside your application while keeping the package size at a minimum. To achieve this we provide a preconfigured MathJax environment with only the necessary bits of the MathJax Library included.
 
-The package size is 2.9 MB compared to 66 MB for a full MathJax installation. If you need support for different output formats and legacy browsers try [`mathjax-node`](https://github.com/mathjax/MathJax-node).
+The package size is ~1 MB compared to 66 MB for a full MathJax installation. If you need support for different output formats and legacy browsers try [`mathjax-node`](https://github.com/mathjax/MathJax-node).
 
 ## Installation
 
