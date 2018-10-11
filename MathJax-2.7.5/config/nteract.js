@@ -3,7 +3,6 @@ MathJax.Hub.Config({
     "tex2jax.js",
     "MathEvents.js",
     "MathZoom.js",
-    "MathMenu.js",
     "toMathML.js",
     "TeX/noErrors.js",
     "TeX/noUndefined.js",
@@ -13,6 +12,8 @@ MathJax.Hub.Config({
   ],
   jax: ["input/TeX", "output/CommonHTML"],
   messageStyle: "none",
+  showMathMenu: false,
+  skipStartupTypeset: true,
   tex2jax: {
     inlineMath: [["$", "$"], ["\\(", "\\)"]],
     displayMath: [["$$", "$$"], ["\\[", "\\]"]],
