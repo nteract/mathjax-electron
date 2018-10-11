@@ -26,8 +26,8 @@
     "url": "https://github.com/nteract/mathjax-electron/issues"
   },
   "devDependencies": {
-    "electron": "^1.6.2",
-    "electron-mocha": "^4.0.0",
-    "jsdoc": "^3.4.0"
+    "electron": "^3.0.4",
+    "electron-mocha": "^6.0.4",
+    "jsdoc": "^3.5.5"
   }
 }
