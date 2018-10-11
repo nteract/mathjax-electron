@@ -5,7 +5,8 @@ var mathJaxHelper = require("../index");
 describe("loading", function() {
   it("should load MathJax", function(done) {
     var mathJaxPath = path.join(__dirname, "..", "resources");
-    var headScript = '<script type="text/javascript" src="' +
+    var headScript =
+      '<script type="text/javascript" src="' +
       mathJaxPath +
       '/MathJax/MathJax.js?config=electron"></script>';
     assert.ok(typeof MathJax === "undefined", "MathJax should be undefined");
