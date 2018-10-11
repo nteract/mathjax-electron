@@ -6,8 +6,7 @@ var path = require("path");
  * Path to manually load configured MathJax
  */
 var mathJaxPath =
-  path.resolve(path.join(__dirname, "MathJax-2.7.5", "MathJax.js")) +
-  "?config=nteract";
+  path.join(__dirname, "MathJax-2.7.5", "MathJax.js") + "?config=nteract";
 
 /**
  * Loads and configures MathJax if necessary.
