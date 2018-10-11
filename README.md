@@ -61,3 +61,12 @@ mathjaxHelper.loadAndTypeset(document, container);
 ```
 
 If used for the first time it will initialize MathJax and trigger a rendering. After that it won't load MathJax again and only trigger the rendering.
+
+### Manually Loading MathJax
+
+For applications to manually loaded, or directly injected into the HTML, `mathjax-electron` exports the absolute path to load the configured MathJax Library.
+
+```javascript
+const { mathJaxPath } = require("mathjax-electron");
+// /.../node_modules/mathjax-electron/MathJax-2.7.5/MathJax.js?config=nteract
+```

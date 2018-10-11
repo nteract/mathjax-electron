@@ -4,9 +4,15 @@
   "description": "A trimmed down version of the MathJax library for use with Electron and modern browsers",
   "main": "index.js",
   "scripts": {
-    "build:docs": "jsdoc -R README.md -d docs index.js",
+    "mathjax:clean": "rm -r MathJax-2.7.5 | true",
+    "mathjax:download": "npm run mathjax:clean && curl -L https://github.com/mathjax/MathJax/archive/2.7.5.tar.gz | tar xz",
+    "mathjax:prune": "grunt nteract",
     "test": "electron-mocha --renderer test/load.test.js && electron-mocha --renderer test/load-and-typeset.test.js"
   },
+  "files": [
+    "index.js",
+    "MathJax-2.7.5/"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/nteract/mathjax-electron.git"
@@ -28,6 +34,11 @@
   "devDependencies": {
     "electron": "^3.0.4",
     "electron-mocha": "^6.0.4",
-    "jsdoc": "^3.5.5"
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.3.1",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-regex-replace": "^0.4.0",
+    "snap-shot": "^2.17.0"
   }
 }
