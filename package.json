@@ -7,7 +7,8 @@
     "mathjax:clean": "rm -r MathJax-2.7.5 | true",
     "mathjax:download": "npm run mathjax:clean && curl -L https://github.com/mathjax/MathJax/archive/2.7.5.tar.gz | tar xz",
     "mathjax:prune": "grunt nteract",
-    "test": "electron-mocha --renderer test/load.test.js && electron-mocha --renderer test/load-and-typeset.test.js"
+    "test": "electron-mocha --renderer test/load.test.js && electron-mocha --renderer test/load-and-typeset.test.js",
+    "semantic-release": "semantic-release"
   },
   "files": [
     "index.js",
@@ -32,6 +33,8 @@
     "url": "https://github.com/nteract/mathjax-electron/issues"
   },
   "devDependencies": {
+    "@semantic-release/npm": "^7.1.3",
+    "conventional-changelog-conventionalcommits": "^4.6.0",
     "electron": "^3.0.4",
     "electron-mocha": "^6.0.4",
     "grunt": "^1.0.3",
@@ -39,6 +42,18 @@
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-regex-replace": "^0.4.0",
+    "semantic-release": "^17.4.3",
     "snap-shot": "^2.17.0"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      "@semantic-release/npm"
+    ]
   }
 }
