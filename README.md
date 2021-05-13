@@ -1,7 +1,5 @@
 # mathjax-electron
 
-[![Build Status](https://travis-ci.org/nteract/mathjax-electron.svg?branch=master)](https://travis-ci.org/nteract/mathjax-electron)
-
 A trimmed down version of the [MathJax](https://www.mathjax.org/) library for use with electron and modern browsers.
 
 `mathjax-electron` allows you to render math inside your application while keeping the package size at a minimum. To achieve this we provide a preconfigured MathJax environment with only the necessary bits of the MathJax Library included.
