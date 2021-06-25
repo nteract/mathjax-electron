@@ -2,14 +2,16 @@ name: CI
 on: push
 jobs:
   test:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
       - run: npm ci
-      - run: xvb-run -- npm test
+      - name: Use xvfb-run on Linux
+        run: sed -i 's/\(electron-mocha \)/xvfb-run \1/g' package.json
+      - run: npm test
       - name: Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
