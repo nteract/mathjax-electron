@@ -2,13 +2,15 @@ name: CI
 on: push
 jobs:
   test:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
       - run: npm ci
+      - name: Use xvfb-run on Linux
+        run: sed -i 's/\(electron-mocha \)/xvfb-run --auto-servernum --server-num=1 \1/g' package.json
       - run: npm test
       - name: Release
         env:
